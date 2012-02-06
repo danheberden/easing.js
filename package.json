@@ -1,0 +1,28 @@
+{
+  "name": "easing.js",
+  "title": "Simple Easing Plugin",
+  "description": "Creates Easing object to get easing state from by percentage.",
+  "version": "0.0.1",
+  "homepage": "https://github.com/danheberden/easing.js",
+  "author": {
+    "name": "Dan Heberden",
+    "email": "danheberden@gmail.com",
+    "url": "http://danheberden.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/danheberden/easing.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/danheberden/easing.js/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/danheberden/easing.js/blob/master/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {},
+  "devDependencies": {},
+  "keywords": []
+}
