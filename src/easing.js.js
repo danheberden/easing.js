@@ -61,14 +61,13 @@
           return 1-Math.cos( p * pi / 2  ) ;
         },
         Expo: function ( p ) {
-          return pow( 2, 10 * (p - 1) );
+          return pow( p, 6 );
         },
         Circ: function ( p ) {
           return 1 - arc( p, 1, 1 );
         },
         Elastic: function( p ) {
-          var s = 15 / pi * Math.asin( 1 ) ;
-          return -(pow( 2, 8 * (p - 1) ) * Math.sin( ((p - 1) * 80 - s ) * pi / 15 ));
+          return Math.sin( ( pi * 2 ) - p * ( pi * 5.5 ) ) * (1 - arc( p, 1, 1, 4 ) * .97 );
         },
         Back: function( p ) {
           return p * p * ( 3 * p - 2 );
@@ -101,8 +100,8 @@
     },
 
     // p is progress (0-1), h is height of arc, rX is radius on X
-    arc = function( p, h, rX ) {
-      return Math.sqrt( h * h - pow( ( h / rX ) * p, 2 ) );
+    arc = function( p, h, rX, pwr, smooth ) {
+      return pow( Math.sqrt( h * h - pow( ( h / rX ) * p, pwr || 2 ) ), smooth || 1 );
     },
 
     pow = Math.pow,
