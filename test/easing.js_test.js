@@ -18,12 +18,11 @@
     strictEqual( ease.end, 1, 'end should default to 1' );
   });
 
-  test('Proto', 5, function() {
+  test('Proto', 4, function() {
     var ease = new Easing( 'easeInSine' );
     strictEqual( ease.constructor, Easing, 'constructor should be easy' );
     strictEqual( typeof ease.calc, 'function', 'calc should be there and a function' );
     strictEqual( ease.fn, ease.prototype, 'prototype should be aliased as fn' );
-    strictEqual( typeof ease.easingsIn, 'object', 'base "easingsIn" easings should be an object' );
     strictEqual( typeof ease.easings, 'object', 'extra or custom easings object should exist' );
   });
 

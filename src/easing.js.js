@@ -19,23 +19,32 @@
         // what kind of easing fn?
         var kind = /(InOut|In|Out)(\w+)/.exec( type ),
           easingFn = type,
+          map,
           fn;
 
 
         if ( kind ) {
-          fn = proto.easingsIn[ kind[2] ];
-          easingFn = fn;
+          map = proto.mappings[ kind[2] ];
+          fn = proto.base[ map[0] ];
+
           if ( kind[1] === "InOut" ){
             easingFn = function( p, e ){
               return p < 0.5 ?
-                     fn( p * 2, e ) / 2 :
-                     fn( p * -2 + 2, e ) / -2 + 1;
+                     fn( p * 2, map[1], map[2] ) / 2 :
+                     fn( p * -2 + 2, map[1], map[2] ) / -2 + 1;
             };
           } else if ( kind[1] === "Out" ) {
             easingFn = function( p, e) {
-              return 1 - fn(1-p, e);
+              return 1 - fn(1-p, map[1], map[2]);
+            };
+          }else {
+            easingFn = function( p ){
+              return fn( p, map[1], map[2] );
             };
           }
+
+        // look up type in the easing object or default to linear
+        // if it wasn't a custom function passed in
         } else if ( typeof type !== 'function' ) {
           easingFn = easing.fn.easings[ type || 'linear' ];
         }
@@ -56,50 +65,49 @@
           return p;
         }
       },
-      easingsIn: {
-        Sine: function ( p ) {
-          return 1-Math.cos( p * pi / 2  ) ;
+
+     mappings: {
+        'Quad' : [ 's', 2 , 2 ],
+        'Cubic' : [ 's', 3 , 2 ],
+        'Quart' : [ 's', 4 , 2 ],
+        'Quint' : [ 's', 5 , 2 ],
+        'Expo' : [ 's', 6 ],
+        'Sine' : [ 's', 2, 2 ],
+        'Circ' : [ 's', 2 ],
+        'Elastic' : [ 'e', 3 ],
+        'Bounce' : [ 'b' ],
+        'Back': [ 'back' ]
+      },
+
+
+      base: {
+        s: function( p, amount, smooth ) {
+          return 1 - arc( p, 1, 1, amount, smooth );
         },
-        Expo: function ( p ) {
-          return pow( p, 6 );
+        e: function( p, amount ) {
+          return Math.sin( (pi*2) - p * (pi *(amount+amount-1+0.5)) ) * ( 1 - arc( p, 1, 1, 4 ) * .97 );
         },
-        Circ: function ( p ) {
-          return 1 - arc( p, 1, 1 );
-        },
-        Elastic: function( p ) {
-          return Math.sin( ( pi * 2 ) - p * ( pi * 5.5 ) ) * (1 - arc( p, 1, 1, 4 ) * .97 );
-        },
-        Back: function( p ) {
-          return p * p * ( 3 * p - 2 );
-        },
-        Bounce: function( p ) {
+        b: function( p, amount ) {
           var levels = [0.10,0.32,0.68,1.305],
             result = 0,
             i = 0;
           for ( ; i < levels.length; i++ ) {
             if ( p < levels[i] ) {
               var half = ( levels[i] - ( levels[i-1] || 0 ) ) / 2,
-                height = proto.easingsIn.Sine( levels[i] - half ) + 0.01;
+                height = 1-arc( levels[i] - half, 1, 1, 2, 2 ) + 0.01;
               return arc( p - (levels[i] - half) , height, half );
             }
           }
         },
-        Quad: function( p ) {
-          return pow( p, 2 );
-        },
-        Cubic: function( p ) {
-          return pow( p, 3 );
-        },
-        Quart: function( p ) {
-          return pow( p, 4 );
-        },
-        Quint: function( p ) {
-          return pow( p, 5 );
+        back: function( p ) {
+          return p * p * ( 3 * p - 2 );
         }
       }
+
     },
 
-    // p is progress (0-1), h is height of arc, rX is radius on X
+    // p is progress (0-1), h is height of arc, rX is radius on X,
+    // pwr is how much curve and smooth makes it more like a cubic curve
     arc = function( p, h, rX, pwr, smooth ) {
       return pow( Math.sqrt( h * h - pow( ( h / rX ) * p, pwr || 2 ) ), smooth || 1 );
     },
@@ -111,7 +119,7 @@
 
   // all the jqueries
   if ( $ ) {
-    $.each( proto.easingsIn, function( n, v ){
+    $.each( proto.mappings, function( n, v ){
       $.each( ['In', 'Out', 'InOut'], function( i, t ) {
         var name = "ease" + t + n;
 
