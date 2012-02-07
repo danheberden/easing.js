@@ -5,32 +5,20 @@
 
   module('var Easing;');
 
-  test('Constructor assignments', 3, function() {
-    var ease = new Easing( 'easeInSine', 9001, 31337 );
-    strictEqual( typeof ease.easingFn, 'function', 'easingFn should be a function' );
-    strictEqual( ease.start, 9001, 'starting value shoul persist ' );
-    strictEqual( ease.end, 31337, 'ending value should persist' );
+  test('Function and pub stuff even there?', 3, function() {
+    strictEqual( typeof ease, 'function', 'window.ease should be a function' );
+    strictEqual( typeof ease.easings, 'object', 'easings obj should be there' );
+    strictEqual( typeof ease.mappings, 'object', 'mappings should be there' );
+   });
+
+  test( 'jQuery Plugin ', 1, function() {
+    ease.easejQuery();
+    strictEqual( typeof jQuery.easing.easeInBounce, 'function', 'easeInBounce should be on $.easing when ease.easejQuery() is called' );
   });
 
-  test( 'Constructor defaults', 2, function() {
-    var ease = new Easing( 'easeInSine' );
-    strictEqual( ease.start, 0, 'start should default to 0' );
-    strictEqual( ease.end, 1, 'end should default to 1' );
-  });
 
-  test('Proto', 4, function() {
-    var ease = new Easing( 'easeInSine' );
-    strictEqual( ease.constructor, Easing, 'constructor should be easy' );
-    strictEqual( typeof ease.calc, 'function', 'calc should be there and a function' );
-    strictEqual( ease.fn, ease.prototype, 'prototype should be aliased as fn' );
-    strictEqual( typeof ease.easings, 'object', 'extra or custom easings object should exist' );
-  });
-
-  test( 'Calc', 2, function() {
-    var ease = new Easing();
-    strictEqual( ease.calc( 0.5 ), 0.5, 'default linear easing should be .5 on 0-1 range' );
-    ease.end = 100;
-    strictEqual( ease.calc( 0.5 ), 50, 'easing should use new end value to get 50% of' );
+  test( 'Calc', 1, function() {
+    strictEqual( ease( 'linear', 0.5 ), 0.5, 'default linear easing should be .5 on 0-1 range' );
   });
 
 

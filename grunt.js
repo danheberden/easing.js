@@ -37,7 +37,8 @@ config.init({
       eqnull: true
     },
     globals: {
-      jQuery: true
+      jQuery: true,
+      ease: true
     }
   },
   uglify: {}
