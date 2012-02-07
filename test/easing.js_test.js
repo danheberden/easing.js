@@ -12,7 +12,6 @@
    });
 
   test( 'jQuery Plugin ', 1, function() {
-    easing.easejQuery();
     strictEqual( typeof jQuery.easing.easeInBounce, 'function', 'easeInBounce should be on $.easing when easing.easejQuery() is called' );
   });
 

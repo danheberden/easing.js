@@ -31,11 +31,8 @@ In your web page using jQuery:
 <script src="dist/easing.js.min.js"></script>
 <script>
   $( document ).ready( function() {
-    // create the jQuery methods
-    // you only need to do this once!
-    easing.easejQuery();
 
-    // now the easing functions will work with jq fns
+    // easing functions will work with jq functions
     $( '#idOfElement' ).slideUp( 1000, 'easeOutBounce' );
 
     // and even the easy to remember ones
@@ -59,7 +56,7 @@ Using standalone:
   easing( 'easeIn2', 0.5, start, end ); // returns 62.5
 
   // easeIn2 at 50%
-  easing( 'easeIn2', 0.5 ) * ( start - end ); // returns 62.5
+  easing( 'easeIn2', 0.5 ) * ( end - start ) + start; // returns 62.5
 
  </script>
 ```
