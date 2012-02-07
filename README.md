@@ -1,7 +1,7 @@
 # Easing Plugin
 
 Creates Easing object to get easing state from by percentage. Latest
-version: 911 bytes min'd and gzip'd.
+version: 911 bytes min'd and gzip'.
 
 ## Getting Started
 Download the [production version][min] or the [development version][max].
@@ -15,8 +15,18 @@ In your web page using jQuery:
 <script src="jquery.js"></script>
 <script src="dist/easing.js.min.js"></script>
 <script>
-  $( '#idOfElement' ).slideUp( 1000, 'easeOutBounce' );
-</script>
+  $( document ).ready( function() {
+    // create the jQuery methods
+    // you only need to do this once!
+    ease.easejQuery();
+
+    // now the easing functions will work with jq fns
+    $( '#idOfElement' ).slideUp( 1000, 'easeOutBounce' );
+
+    // and even the easy to remember ones
+    $( '#someElement' ).slideDown( 600, 'easeOut4' );
+  });
+ </script>
 ```
 
 Using standalone:
@@ -24,35 +34,49 @@ Using standalone:
 ```html
 <script src="dist/easing.js.min.js"></script>
 <script>
-  // ease using easeInCirc between 50 and 100
-  var ease = Easing( 'easeInCirc', 50, 100 );
+  // ease returns a number between 0 and 1 if you don't specify a
+  // a start and end.
 
-  ease.calc( 0 ); // 0% of the ease: 50
-  ease.calc( .5 ); // 50% of the ease: 56.7
-  ease.calc( .75 ); // 75% of the ease: 66.9
-  ease.calc( 1 ); // 100% of the ease: 100;
-</script>
+  var start = 50,
+      end = 100;
+
+  // easeIn2 at 50% between 50 and 100
+  ease( 'easeIn2', 0.5, start, end ); // returns 62.5
+
+  // easeIn2 at 50%
+  ease( 'easeIn2', 0.5 ) * ( start - end ); // returns 62.5
+
+ </script>
 ```
+## Demo
 
+[http://jsfiddle.net/danheberden/rWGm2/](http://jsfiddle.net/danheberden/rWGm2/)
 
 ## Documentation
 
-The 2nd and 3rd arguement of the Easing constructor will default to 0
-and 1 for the use-case of percentages. E.g.,
+`ease` only requires the first two arguments:
 
-```javascript
-var ease = Easing( 'easeInCirc' );
+#### type
 
-ease.calc( .5 ); // .134
-```
+The type of easing you want to perform, such as `easeInBounce`,
+`easeInSine` or the easier to remember `easeInX`, `easeOutX`, and
+`easeInOutX` where `X` can any number between 1 and 9.
+
+#### position
+
+This is at what point you wish to calculate the easing. This is a number
+between 0 and 1.
+
+The 3rd and 4rd arguement of ease are the `start` and `end` - these are
+convenience arguments that perform the math for you :)
 
 This plugin will add easings for use with jQuery's animation methods as
-well. 
+well.
 
 
 ## Release History
 Still working on it - pull req and issues, yo.
 
 ## License
-Copyright (c) 2012 Dan Heberden  
+Copyright (c) 2012 Dan Heberden
 Licensed under the MIT license.

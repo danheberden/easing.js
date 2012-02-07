@@ -7,27 +7,28 @@
   var ease = window.ease = function( type, amount, start, end ) {
 
       // what kind of easing fn?
-      var kind = /(InOut|In|Out)(\w+)/.exec( type ),
+      var parse = /(InOut|In|Out)(\w+)?/.exec( type ),
           easingFn = easy.In,
-          map;
+          map, kind;
       start = start || 0;
       end = end || 1;
 
 
-      if ( kind ) {
+      if ( parse ) {
         // get our ease mappings
-        map = mappings[ kind[2] ];
+        kind = parse[2];
+        map = mappings[ kind ];
 
         // kind of easing function
-        easingFn = easy[ kind[1] ];
+        easingFn = easy[ parse[1] ];
       }
 
-      // make sure  map is an array
       map = map || [];
+
       // look up type in the easing object or default to linear
       // if it wasn't a custom function passed in
       if ( !type.call ) {
-        type = base[ map[0] ] || ease.easings[ type || 'linear' ];
+        type = base[ map[0] ] || ease.easings[ type ] || function( p ){ return p; };
       }
 
       return amount <= 0 ? start : amount >= 1 ? end : easingFn( type, amount, map[1], map[2] ) * ( end - start ) + start;
@@ -47,36 +48,34 @@
       }
     },
 
-    mappings = {
-      Quad : [ 's', 2 , 2 ],
-      Cubic : [ 's', 3 , 2 ],
-      Quart : [ 's', 4 , 2 ],
-      Quint : [ 's', 5 , 2 ],
-      Expo : [ 's', 6 ],
-      Sine : [ 's', 2, 2 ],
-      Circ : [ 's', 2 ],
+    mappings = ease.mappings = {
+      Quad : [ 's', 2  ],
+      Cubic : [ 's', 3  ],
+      Quart : [ 's', 4  ],
+      Quint : [ 's', 5 ],
+      Expo : [ 's', 6, 1 ],
+      Sine : [ 's', 2 ],
+      Circ : [ 's', 2, 1 ],
       Elastic : [ 'e', 3 ],
       Bounce : [ 'b' ],
       Back: [ 'back' ]
     },
-
 
     base = {
       s: function( p, amount, smooth ) {
         return 1 - arc( p, 1, 1, amount, smooth );
       },
       e: function( p, amount ) {
-        return Math.sin( (pi*2) - p * (pi *(amount+amount-1+0.5)) ) * ( 1 - arc( p, 1, 1, 4 ) * 0.97 );
+        return Math.sin( ( pi * 2 ) - p * ( pi * ( amount + amount - 0.5 ) ) ) * ( base.s( p, 2, 1 ) * 0.97 );
       },
       b: function( p, amount ) {
         var levels = [0.10,0.32,0.68,1.305],
-          result = 0,
           i = 0;
         for ( ; i < levels.length; i++ ) {
           if ( p < levels[i] ) {
             var half = ( levels[i] - ( levels[i-1] || 0 ) ) / 2,
-              height = 1-arc( levels[i] - half, 1, 1, 2, 2 ) + 0.01;
-            return arc( p - (levels[i] - half) , height, half );
+                height = base.s( levels[i] - half, 1, 1 ) + 0.085;
+            return arc( p - (levels[i] - half) , height, half, 2 );
           }
         }
       },
@@ -87,19 +86,23 @@
       // pwr is how much curve and smooth makes it more like a cubic curve
     },
     arc = function( p, h, rX, pwr, smooth ) {
-      return pow( Math.sqrt( h * h - pow( ( h / rX ) * p, pwr || 2 ) ), smooth || 1 );
+      h = h || 1;
+      rX = rX || 1;
+      return pow( Math.sqrt( h * h - pow( ( h / rX ) * p, pwr || 2 ) ), smooth || 2 );
     },
     pow = Math.pow,
-    pi = Math.PI,
-    $ = window.jQuery;
+    pi = Math.PI;
+
+  // add easier to remember easing functions - easeIn1, easeInOut2, etc
+  for ( var i = 1; i < 10; i++ ) {
+    mappings[i] = [ 's', i+1, i > 4 ? 1 : 2 ];
+  }
 
   ease.easings = {
     linear: function( p ){
       return p;
     }
   };
-
-  ease.mappings = mappings;
 
   ease.easejQuery = function( $ ) {
     $ = $ || window.jQuery;
@@ -117,3 +120,4 @@
   };
 
 }( this));
+
