@@ -91,7 +91,8 @@
       return pow( Math.sqrt( h * h - pow( ( h / rX ) * p, pwr || 2 ) ), smooth || 2 );
     },
     pow = Math.pow,
-    pi = Math.PI;
+    pi = Math.PI,
+    $ = window.jQuery;
 
   // add easier to remember easing functions - easeIn1, easeInOut2, etc
   for ( var i = 1; i < 10; i++ ) {
@@ -100,10 +101,9 @@
 
   easing.easings = {};
 
-  easing.easejQuery = function( $ ) {
-    $ = $ || window.jQuery;
+  if ( $ ) {
     // all the jqueries
-    $.each( mappings, function( n, v ){
+    $.each( mappings, function( n ){
       $.each( easy, function( type ) {
         var name = "ease" + type + n;
 
@@ -113,7 +113,7 @@
         };
       });
     });
-  };
+  }
 
 }( this));
 
