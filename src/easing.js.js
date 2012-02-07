@@ -5,8 +5,6 @@
  * Copyright (c) 2012 Dan Heberden
  * Licensed under the MIT license.
  */
-
-// New Object Template
 (function( window ){
   var easing = window.easing = function( type, amount, start, end ) {
 
@@ -70,10 +68,10 @@
         return 1 - arc( p, 1, 1, amount, smooth );
       },
       e: function( p, amount ) {
-        return Math.sin( ( pi * 2 ) - p * ( pi * ( amount + amount - 0.5 ) ) ) * ( base.s( p, 2, 1 ) * 0.97 );
+        return Math.sin( pi * 2 - p *  pi * ( amount + amount - 0.5 )  ) * base.s( p, 2, 1 ) * 0.97;
       },
       b: function( p, amount ) {
-        var levels = [0.10,0.32,0.68,1.305],
+        var levels = [ 0.10, 0.32, 0.68, 1.305 ],
           i = 0;
         for ( ; i < levels.length; i++ ) {
           if ( p < levels[i] ) {
@@ -86,9 +84,10 @@
       back: function( p ) {
         return p * p * ( 3 * p - 2 );
       }
-      // p is progress (0-1), h is height of arc, rX is radius on X,
-      // pwr is how much curve and smooth makes it more like a cubic curve
     },
+
+    // p is progress (0-1), h is height of arc, rX is radius on X,
+    // pwr is how much curve and smooth makes it more like a cubic curve
     arc = function( p, h, rX, pwr, smooth ) {
       h = h || 1;
       rX = rX || 1;
@@ -100,7 +99,7 @@
 
   // add easier to remember easing functions - easeIn1, easeInOut2, etc
   for ( var i = 1; i < 10; i++ ) {
-    mappings[i] = [ 's', i+1, i > 4 ? 1 : 2 ];
+    mappings[i] = [ 's', i + 1, i > 4 ? 1 : 2 ];
   }
 
   easing.easings = {};
@@ -120,4 +119,3 @@
   }
 
 }( this));
-

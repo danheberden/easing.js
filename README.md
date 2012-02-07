@@ -16,7 +16,7 @@ easing( 'easeIn3', 0.5, 5, 10 );
 
 ## Size?
 
-752 bytes min'd and gzip'd.
+745 bytes min'd and gzip'd.
 
 ## Getting Started
 Download the [production version][min] or the [development version][max].
