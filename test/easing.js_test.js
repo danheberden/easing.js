@@ -6,19 +6,19 @@
   module('var Easing;');
 
   test('Function and pub stuff even there?', 3, function() {
-    strictEqual( typeof ease, 'function', 'window.ease should be a function' );
-    strictEqual( typeof ease.easings, 'object', 'easings obj should be there' );
-    strictEqual( typeof ease.mappings, 'object', 'mappings should be there' );
+    strictEqual( typeof easing, 'function', 'window.easing should be a function' );
+    strictEqual( typeof easing.easings, 'object', 'easings obj should be there' );
+    strictEqual( typeof easing.mappings, 'object', 'mappings should be there' );
    });
 
   test( 'jQuery Plugin ', 1, function() {
-    ease.easejQuery();
-    strictEqual( typeof jQuery.easing.easeInBounce, 'function', 'easeInBounce should be on $.easing when ease.easejQuery() is called' );
+    easing.easejQuery();
+    strictEqual( typeof jQuery.easing.easeInBounce, 'function', 'easeInBounce should be on $.easing when easing.easejQuery() is called' );
   });
 
 
   test( 'Calc', 1, function() {
-    strictEqual( ease( 'linear', 0.5 ), 0.5, 'default linear easing should be .5 on 0-1 range' );
+    strictEqual( easing( 'linear', 0.5 ), 0.5, 'default linear easing should be .5 on 0-1 range' );
   });
 
 

@@ -4,7 +4,7 @@
 
 // New Object Template
 (function( window ){
-  var ease = window.ease = function( type, amount, start, end ) {
+  var easing = window.easing = function( type, amount, start, end ) {
 
       // what kind of easing fn?
       var parse = /(InOut|In|Out)(\w+)?/.exec( type ),
@@ -15,7 +15,7 @@
 
 
       if ( parse ) {
-        // get our ease mappings
+        // get our easing mappings
         kind = parse[2];
         map = mappings[ kind ];
 
@@ -28,7 +28,7 @@
       // look up type in the easing object or default to linear
       // if it wasn't a custom function passed in
       if ( !type.call ) {
-        type = base[ map[0] ] || ease.easings[ type ] || function( p ){ return p; };
+        type = base[ map[0] ] || easing.easings[ type ] || function( p ){ return p; };
       }
 
       return amount <= 0 ? start : amount >= 1 ? end : easingFn( type, amount, map[1], map[2] ) * ( end - start ) + start;
@@ -48,7 +48,7 @@
       }
     },
 
-    mappings = ease.mappings = {
+    mappings = easing.mappings = {
       Quad : [ 's', 2  ],
       Cubic : [ 's', 3  ],
       Quart : [ 's', 4  ],
@@ -98,13 +98,9 @@
     mappings[i] = [ 's', i+1, i > 4 ? 1 : 2 ];
   }
 
-  ease.easings = {
-    linear: function( p ){
-      return p;
-    }
-  };
+  easing.easings = {};
 
-  ease.easejQuery = function( $ ) {
+  easing.easejQuery = function( $ ) {
     $ = $ || window.jQuery;
     // all the jqueries
     $.each( mappings, function( n, v ){
@@ -113,7 +109,7 @@
 
         // make a jq version
         $.easing[name] = function( x, t, b, c, d ) {
-          return ease( name, t/d, b, c-b );
+          return easing( name, t/d, b, c-b );
         };
       });
     });
