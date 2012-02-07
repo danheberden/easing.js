@@ -1,7 +1,20 @@
 # Easing Plugin
 
-Creates Easing object to get easing state from by percentage. Latest
-version: 911 bytes min'd and gzip'.
+Easing function for use with or without jQuery. In addition to the
+standard list of easing functions, it adds an easier to remember syntax
+for when you want to use Sine, Circ, Quad, Expo, etc.
+
+`ease` accepts `easeInX`, `easeOutX`, and `easeInOutX` where X is a
+number between 1 and 9; 1 is the least dramatic curve, similar to `Sine`. 9 is the most dramatic curve, even more than `Expo`.
+
+```javascript
+// get the easeIn3 value at 50% of the ease between 5 and 10
+ease( 'easeIn3', 0.5, 5, 10 );
+```
+
+## Size?
+
+766 bytes min'd and gzip'd.
 
 ## Getting Started
 Download the [production version][min] or the [development version][max].
@@ -57,22 +70,22 @@ Using standalone:
 `ease` only requires the first two arguments:
 
 #### type
-
 The type of easing you want to perform, such as `easeInBounce`,
 `easeInSine` or the easier to remember `easeInX`, `easeOutX`, and
 `easeInOutX` where `X` can any number between 1 and 9.
 
 #### position
-
 This is at what point you wish to calculate the easing. This is a number
 between 0 and 1.
 
-The 3rd and 4rd arguement of ease are the `start` and `end` - these are
-convenience arguments that perform the math for you :)
+#### start (optional)
 
-This plugin will add easings for use with jQuery's animation methods as
-well.
+The start value to use for the ease value calculation
 
+#### end (optional)
+The end value to use for the ease value calculation
+
+For a list of what easing functions are supported, check out the demo.
 
 ## Release History
 Still working on it - pull req and issues, yo.
