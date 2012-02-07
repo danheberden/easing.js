@@ -1,4 +1,4 @@
-/*! Simple Easing Plugin - v0.0.1 - 2/6/2012
+/*! Easing Plugin - v1.0.1 - 2/6/2012
 * https://github.com/danheberden/easing.js
 * Copyright (c) 2012 Dan Heberden; Licensed MIT */
 

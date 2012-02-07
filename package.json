@@ -1,8 +1,8 @@
 {
   "name": "easing.js",
-  "title": "Simple Easing Plugin",
+  "title": "Easing Plugin",
   "description": "Creates Easing object to get easing state from by percentage.",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "homepage": "https://github.com/danheberden/easing.js",
   "author": {
     "name": "Dan Heberden",
