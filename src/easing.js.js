@@ -67,7 +67,7 @@
           return Math.sqrt( 1 - Math.pow( 2 * ( mod / Math.pow( 2, bounce ) - 1 ) - 1 ,2) ) * base.s( ( ( bounce + 1 ) / amount ) * limit, 3 );
         }
       },
-        back: function( p ) {
+      back: function( p ) {
         return p * p * ( 3 * p - 2 );
       }
     },
