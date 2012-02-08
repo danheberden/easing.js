@@ -16,7 +16,7 @@ easing( 'easeIn3', 0.5, 5, 10 );
 
 ## Size?
 
-736 bytes min'd and gzip'd.
+714 bytes min'd and gzip'd.
 
 ## Getting Started
 Download the [production version][min] or the [development version][max].
@@ -97,6 +97,9 @@ a bit too big; this plugin works without jQuery, is smaller, and offers
 more usability.
 
 ## Release History
+
+v1.1.0 - Removed arc function, improved bounce to calculate # of bounces
+
 v1.0.0 - Removed constructor design in favor of easier to use utilities,
 simpler math and quicker load time.
 

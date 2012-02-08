@@ -1,4 +1,4 @@
-/*! Easing Plugin - v1.0.1 - 2/6/2012
+/*! Easing Plugin - v1.1.0 - 2/8/2012
 * https://github.com/danheberden/easing.js
 * Copyright (c) 2012 Dan Heberden; Licensed MIT */
 
@@ -47,25 +47,24 @@
       }
     },
 
-    base = {
+     base = {
       s: function( p, amount, smooth ) {
-        return 1 - arc( p, 1, 1, amount, smooth );
+        return 1 - Math.pow( Math.sqrt( 1 - Math.pow( p, amount || 2 ) ), smooth || 2 );
       },
       e: function( p, amount ) {
-        return Math.sin( Math.PI * 2 - p *  Math.PI * ( amount + amount - 0.5 )  ) * base.s( p, 2, 1 ) * 0.97;
+        return Math.sin( ( Math.pi * 2 ) - p * ( Math.pi * ( amount + amount - 0.5 ) ) ) * ( base.s( p, 2, 1 ) * 0.97 );
       },
       b: function( p, amount ) {
-        var levels = [ 0.10, 0.32, 0.68, 1.305 ],
-          i = 0;
-        for ( ; i < levels.length; i++ ) {
-          if ( p < levels[i] ) {
-            var half = ( levels[i] - ( levels[i-1] || 0 ) ) / 2,
-                height = base.s( levels[i] - half, 1, 1 ) + 0.085;
-            return arc( p - (levels[i] - half) , height, half, 2 );
-          }
+        var limit = 4 / 7 + amount / 50,
+            mod = 1 + p / ( limit / ( Math.pow( 2, amount )-1 )),
+            bounce = ~~( Math.log( mod ) / Math.log( 2 ) );
+        if ( p > limit ){
+          return 1 - base.s( 1 - ( -limit + p ) / ( 1 - limit ), 2 );
+        } else {
+          return Math.sqrt( 1 - Math.pow( 2 * ( mod / Math.pow( 2, bounce ) - 1 ) - 1 ,2) ) * base.s( ( ( bounce + 1 ) / amount ) * limit, 3 );
         }
       },
-      back: function( p ) {
+        back: function( p ) {
         return p * p * ( 3 * p - 2 );
       }
     },
@@ -83,13 +82,6 @@
       Back: [ base.back ]
     },
 
-    // p is progress (0-1), h is height of arc, rX is radius on X,
-    // pwr is how much curve and smooth makes it more like a cubic curve
-    arc = function( p, h, rX, pwr, smooth ) {
-      h = h || 1;
-      rX = rX || 1;
-      return Math.pow( Math.sqrt( h * h - Math.pow( ( h / rX ) * p, pwr || 2 ) ), smooth || 2 );
-    },
     $ = window.jQuery;
 
   // add easier to remember easing functions - easeIn1, easeInOut2, etc
