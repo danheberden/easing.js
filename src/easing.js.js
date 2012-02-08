@@ -55,7 +55,7 @@
         return 1 - Math.pow( Math.sqrt( 1 - Math.pow( p, amount || 2 ) ), smooth || 2 );
       },
       e: function( p, amount ) {
-        return Math.sin( ( Math.pi * 2 ) - p * ( Math.pi * ( amount + amount - 0.5 ) ) ) * ( base.s( p, 2, 1 ) * 0.97 );
+        return Math.sin( ( Math.PI * 2 ) - p * ( Math.PI * ( amount + amount - 0.5 ) ) ) * ( base.s( p, 2, 1 ) * 0.97 );
       },
       b: function( p, amount ) {
         var limit = 4 / 7 + amount / 50,
@@ -81,7 +81,7 @@
       Sine : [ base.s, 2 ],
       Circ : [ base.s, 2, 1 ],
       Elastic : [ base.e, 3 ],
-      Bounce : [ base.b ],
+      Bounce : [ base.b, 3 ],
       Back: [ base.back ]
     },
 
