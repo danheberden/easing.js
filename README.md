@@ -98,6 +98,8 @@ more usability.
 
 ## Release History
 
+1.1.2 - Fix manifest file naming
+
 1.1.1 - Add manifest file for the [jQuery Plugins Site](http://plugins.jquery.com)
 
 1.1.0 - Removed arc function, improved bounce to calculate # of bounces

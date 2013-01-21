@@ -2,7 +2,7 @@
   "name": "easing",
   "title": "easing - easing functions for jQuery or standalone",
   "description": "Easing function for use with or without jQuery. In addition to the standard list of easing functions, it adds an easier to remember syntax for when you want to use Sine, Circ, Quad, Expo, etc.",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "homepage": "https://github.com/danheberden/easing.js",
   "author": {
     "name": "Dan Heberden",
