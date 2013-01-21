@@ -98,12 +98,14 @@ more usability.
 
 ## Release History
 
-v1.1.0 - Removed arc function, improved bounce to calculate # of bounces
+1.1.1 - Add manifest file for the [jQuery Plugins Site](http://plugins.jquery.com)
 
-v1.0.0 - Removed constructor design in favor of easier to use utilities,
+1.1.0 - Removed arc function, improved bounce to calculate # of bounces
+
+1.0.0 - Removed constructor design in favor of easier to use utilities,
 simpler math and quicker load time.
 
-v0.0.1 - Initial release
+0.0.1 - Initial release
 
 ## License
 Copyright (c) 2012 Dan Heberden
